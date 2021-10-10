@@ -8,7 +8,7 @@
   
   
   
-  <title>归档 | fabioCircle的blog</title>
+  <title>反作弊调研汇总 | fabioCircle的blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -212,71 +212,303 @@
   })
 </script>
 
-      <div class="container">
-  <div class="timeline">
-  <span class="archive-move-on"></span>
-  <span class="archive-page-counter">
-    
-      <span>Wow! 一共有 3 篇文章</span>
-    
-  </span>
+      
+
+
+
+
+
+
+
+
+<div class="container post-index">
+
   
+
+<div class="post">
+  <h1 class="article-title">
+    <span>反作弊调研汇总</span>
+  </h1>
+  <div class="article-top-meta">
+    <span>
+      发布 : 
+      2021-10-10
+    </span>
+    
+    
+      <span>
+        浏览 : <span class="article-timer" data-identity="反作弊调研汇总"></span>
+      </span>
+    
+  </div>
+
   
-    <div class="collection-title">
-      <h2>
-        <span>2021</span>
-      </h2>
+
+  <div class="article-content">
+    <div class="markdown-body">
+      <h2 id="知乎反作弊实践框架链接"><a href="#知乎反作弊实践框架链接" class="headerlink" title="知乎反作弊实践框架链接"></a>知乎反作弊实践框架<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/39482667">链接</a></h2><h4 id="其中核心点"><a href="#其中核心点" class="headerlink" title="其中核心点"></a>其中核心点</h4><ul>
+<li><strong>三种控制方式</strong> <blockquote>
+<p><em><strong>策略反作弊</strong></em> ：在反作弊的初期，Spam 特征比较简单的时候，策略是简单粗暴又有用的方式，能够快速的解决问题，所以策略在反作弊解决方案里是一个解决头部问题的利器。<br><em><strong>产品反作弊</strong></em>：一方面通过改变产品形态来有效控制风险的发生，另一方面通过产品方案，对用户和 Spammer 痛点趋于一致的需求进行疏导，有时候我们面对 Spam 问题，对于误伤和准确会遇到一个瓶颈，发现很难去区分正常用户和 Spammer，这种情况下反而通过产品方案，可能会有比较好的解决方案。<br><em><strong>模型反作弊</strong></em>：机器学习模型可以充分提高反作弊系统的泛化能力，降低策略定制的成本。模型应用需要酌情考虑加入人工审核来保证效果，直接处理内容或用户的模型算法，要千万注意模型的可解释性。我们过去的使用经验来说，初期一些无监督的聚类算法能够在比较短时间内达到较好的效果。而有监督的分类算法，在时间上和人力上的耗费会更多，样本的完整程度，特征工程做的好坏，都会影响算法的效果。</p>
+</blockquote>
+</li>
+<li><strong>三个控制环节</strong><blockquote>
+<p><em><strong>事前</strong></em>：事前涉及到的几个环节包括风险教育、业务决策参与、监控报警以及同步拦截。反作弊需要提升业务的风险意识，明确告知反作弊可以提供的服务；并在早期参与到业务决策，避免产品方案上出现比较大的风险；业务接入后，针对业务新增量、处理量、举报量，误伤量进行监控，便于及时发现风险；在策略层面，在事前需要针对头部明显的作弊行为进行频率和资源黑名单的拦截，减轻事中检测的压力。<br> <em><strong>事中</strong></em>：面向长尾曲线的中部，主要针对那些频率较低，且规律没有那么明显的作弊行为，针对不同嫌疑程度的行为与帐号，进行不同层级的处理，要么送审，要么限制行为，要么对内容和帐号进行处罚。<br><em><strong>事后</strong></em>：面向长尾曲线最尾部的行为，即那些非常低频，或者影响没那么大，但是计算量相对大的作弊行为。由一些离线的算法模型和策略负责检测与控制，另外事后部分还涉及到策略的效果跟踪和规则的优化，结合用户反馈与举报，形成一个检测闭环。</p>
+</blockquote>
+</li>
+</ul>
+
+    </div>
+  </div>
+  
+    <div class="copy-right">
+      <div class="markdown-body">
+        <blockquote>
+        
+        
+          本文作者 : fabio <br/>
+        
+        原文链接 : <a href="">https://zzzfwww.github.io/passages/%E5%8F%8D%E4%BD%9C%E5%BC%8A%E8%B0%83%E7%A0%94%E6%B1%87%E6%80%BB/</a><br>
+        版权声明 : 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+        </blockquote>
+      </div>
     </div>
   
   
   
-  <article class="posts-collapse">
-    <header>
-      <h2>
-        <a href="/passages/%E5%8F%8D%E4%BD%9C%E5%BC%8A%E8%B0%83%E7%A0%94%E6%B1%87%E6%80%BB/">
-          <span>反作弊调研汇总</span>
-        </a>
-      </h2>
-      <div class="post-meta">
-        10-10
-      </div>
-    </header>
-  </article>
+    <div class="social-share"
+  style="margin-top: -2rem"
+  data-wechat-qrcode-title="<p>微信扫一扫</p>"
+  data-wechat-qrcode-helper="<p>微信右上角, 扫一扫分享</p>"
+   data-sites="qq, weibo, wechat, google, facebook, twitter" 
   
-  
-  <article class="posts-collapse">
-    <header>
-      <h2>
-        <a href="/passages/nvm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-          <span>nvm常用命令</span>
-        </a>
-      </h2>
-      <div class="post-meta">
-        09-21
-      </div>
-    </header>
-  </article>
-  
-  
-  <article class="posts-collapse">
-    <header>
-      <h2>
-        <a href="/passages/Vim8-2%E8%87%AA%E5%8A%A8%E8%A1%A5%E9%BD%90%E6%8F%92%E4%BB%B6YouCompleteMe%E5%AE%89%E8%A3%85%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
-          <span>Vim8.2自动补齐插件YouCompleteMe安装注意事项</span>
-        </a>
-      </h2>
-      <div class="post-meta">
-        09-21
-      </div>
-    </header>
-  </article>
-  
+>
+  <span style="color: #6b7487; font-size: 1.4rem;">分享到: </span>
 </div>
-  <nav class="page-navigation">
+<script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js" async>
+  
+
+  
+    <div id="reward">
+  
+    <p id="reward-meta">知识 & 情怀 | 二者兼得</p>
+  
+  <button id="reward-btn">
+    
+    <span>投食</span>
+  </button>
+  <div id="reward-qrcode">
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/images/wechat.png" alt="微信扫一扫, 向我投食">
+        <p class="qrcode-meta">微信扫一扫, 向我投食</p>
+      </div>
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/images/alipay.png" alt="支付宝扫一扫, 向我投食">
+        <p class="qrcode-meta">支付宝扫一扫, 向我投食</p>
+      </div>
+    
+  </div>
+
+</div>
+
+<script>
+  (() => {
+    let button = document.querySelector('#reward-btn'),
+      qrcode = document.querySelector('#reward-qrcode'),
+      display = false;
+    
+    button.addEventListener('click', () => {
+      qrcode.style.display = display ? 'none' : 'block'
+      display = !display
+    }, false)
+  })()
+</script>
+  
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+      <span>
+        
+      </span>
+    </div>
+    <div class="article-meta pull-right">
+    </div>
+  </div>
+</div>
+
+
+  <aside id="sidebar">
+    <p id="sidebar-header"></p>
+    <ol id="sidebar-toc"></ol>
+  </aside>
+  <script async>setTimeout(generateToc, 10);</script>
+
+
+  <nav class="post-navigation">
+    
+      <div class="nav-pre">
+        <i class="iconfont icon-prev"></i>
+        上一篇:
+        <a href="/passages/nvm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">nvm常用命令</a>
+      </div>
     
     
   </nav>
+
+  
+    <a href="#comment" class="comment-anchor"></a>
+<div class="comment-title"><i class="iconfont icon-footprint"></i> 留下足迹 <i class="iconfont icon-footprint"></i></div>
+<div id="vcomments"></div>
+
+<script defer>
+  if( true ) {
+    let path = getRealPath()
+    new Valine({
+      el: "#vcomments",
+      appId: "Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz",
+      appKey: "WaR7nrzhliHj9aVwdQzkdlGd",
+      notify: false,
+      verify: false,
+      avatar: "robohash",
+      placeholder: "正确填写邮箱, 才能及时收到回复哦♪(^∇^*)",
+      path
+    });
+  }
+</script>
+   
+
+  
+    <script defer>
+const valineAPI = (() => {
+  try {
+    AV.init("Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz", "WaR7nrzhliHj9aVwdQzkdlGd");
+  } catch(error) {}
+  const isExist = (identity) => {
+    identity = identity || getRealPath();
+    let query = new AV.Query('Timer');
+    return new Promise((resolve, reject) => {
+      query.equalTo("identity", identity);
+      query.find().then(results => {
+        resolve(results.length > 0);
+      }, error => reject(error));
+    })
+  }
+
+  const _get = (identity) => {
+    let query = null;
+    if(identity && identity instanceof Array){
+      let querys = [];
+      for(let i = 0; i < identity.length; ++i) {
+        querys[i] = new AV.Query('Timer');
+        querys[i].equalTo('identity', identity[i]);
+      }
+      query = AV.Query.or.apply(null ,querys);
+    } else {
+      identity = identity || getRealPath();
+      query = new AV.Query("Timer");
+      query.equalTo("identity", identity);
+    }
+
+    return new Promise((resolve, reject) => {
+      query.find()
+      .then(results => resolve(results))
+      .catch(error => reject(error))
+    })
+  }
+
+  const create = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let Todo = AV.Object.extend('Timer');
+      let todo = new Todo();
+      todo.set("times", 1);
+      todo.set("identity", identity);
+      todo.save().then(res => resolve(true), error => reject(error));
+    })
+  }
+
+  const update = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let query = new AV.Query('Timer');
+      query.equalTo("identity", identity);
+      query.find().then(todos => {
+        todos.forEach(todo => {
+          todo.set("times", todo.attributes.times + 1);
+        });
+        return AV.Object.saveAll(todos);
+      }).then(todos => resolve(true), error => reject(error));
+    })
+  }
+
+  return {
+    isExist,
+    _get,
+    update,
+    create
+  }
+})()
+
+const calcAndWriteTimes = () => {
+  let isPost = true;
+
+  let timerAllDOM = document.querySelectorAll(".article-timer");
+
+  if(isPost) {
+    let identity = timerAllDOM[0].getAttribute("data-identity");
+    valineAPI.isExist(identity)
+    .then(exist => {
+      if(exist) {
+        return valineAPI.update(identity);
+      }
+      return new Promise(resolve => resolve(true));
+    })
+    .then( succuess => valineAPI._get(identity))
+    .then( result => timerAllDOM[0].innerText = result[0].attributes.times)
+    .catch(error => console.log(error.message))
+    return ;
+  }
+
+  let timerDOMCache = {};
+
+  for(let timerDOM of timerAllDOM) {
+    let identity = timerDOM.getAttribute("data-identity");
+    if(timerDOMCache.hasOwnProperty(identity)){
+      timerDOMCache[identity].dom.push(timerDOM);
+    }else{
+      timerDOMCache[identity] = {
+        dom: [timerDOM],
+        times: undefined
+      };
+    }
+  }
+
+  let identities = Object.keys(timerDOMCache);
+  valineAPI._get(identities).then(results => {
+    for(let result of results) {
+      let {identity, times} = result.attributes;
+      timerDOMCache[identity].times = times;
+      timerDOMCache[identity].dom.map(item => item.innerText = times);
+    }
+    for(let identity of identities) {
+      if(timerDOMCache[identity].times){
+        continue;
+      }
+      timerDOMCache[identity].dom.map(item => item.innerText = 1);
+      valineAPI.create(identity);
+    }
+  }).catch(error => console.log(error.message))
+}
+
+if(true){
+  calcAndWriteTimes();
+}
+</script>
+   
+
 </div>
+
 
       <footer>
   <p class="site-info">
