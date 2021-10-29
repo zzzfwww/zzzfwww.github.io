@@ -8,7 +8,7 @@
   
   
   
-  <title>docker常用命令 | fabioCircle的blog</title>
+  <title>grpc2021.10.29版本中官网文档 | fabioCircle的blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -227,17 +227,17 @@
 
 <div class="post">
   <h1 class="article-title">
-    <span>docker常用命令</span>
+    <span>grpc2021.10.29版本中官网文档</span>
   </h1>
   <div class="article-top-meta">
     <span>
       发布 : 
-      2021-10-27
+      2021-10-29
     </span>
     
     
       <span>
-        浏览 : <span class="article-timer" data-identity="docker常用命令"></span>
+        浏览 : <span class="article-timer" data-identity="grpc2021-10-29版本中官网文档"></span>
       </span>
     
   </div>
@@ -246,33 +246,50 @@
 
   <div class="article-content">
     <div class="markdown-body">
-      <h2 id="Docker-create-mysql-image"><a href="#Docker-create-mysql-image" class="headerlink" title="Docker create mysql image"></a>Docker create mysql image</h2><ul>
-<li>docker pull mysql<ul>
-<li>拉取mysql镜像</li>
-</ul>
-</li>
-<li>docker images<ul>
-<li>查看当前系统以构建的镜像</li>
-</ul>
-</li>
-<li>docker run –name mysql -p 13306:13306 -e MYSQL_ROOT_PASSWORD=rootroot -d mysql<ul>
-<li>运行镜像</li>
-</ul>
-</li>
-<li>docker ps <ul>
-<li>查看正在运行的容器</li>
-<li>如果要看历史所有记录则 docker ps -as</li>
-</ul>
-</li>
-</ul>
-<h2 id="如果启动了mysql容器需要进入容器创建数据库和表"><a href="#如果启动了mysql容器需要进入容器创建数据库和表" class="headerlink" title="如果启动了mysql容器需要进入容器创建数据库和表"></a>如果启动了mysql容器需要进入容器创建数据库和表</h2><ul>
-<li>第一步进入mysql容器 docker exec -it mysql bash</li>
-<li>第二步 mysql -u root -p</li>
-<li>第三步输入密码就可以和其它环境写入数据一致了，终于可以愉快的玩耍了</li>
-</ul>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><blockquote>
-<p>docker 的常用命令就是上面这些，多试几次就可以记住了</p>
-</blockquote>
+      <h2 id="Quick-start"><a href="#Quick-start" class="headerlink" title="Quick start"></a>Quick start</h2><p>This guide gets you started with gRPC in Go with a simple working example.</p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><p>Go, any one of the three latest major releases of Go.</p>
+<p>For installation instructions, see Go’s Getting Started guide.</p>
+<p>Protocol buffer compiler, protoc, version 3.</p>
+<p>For installation instructions, see Protocol Buffer Compiler Installation.</p>
+<p>Go plugins for the protocol compiler:</p>
+<p>Install the protocol compiler plugins for Go using the following commands:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26</span><br><span class="line">$ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1</span><br></pre></td></tr></table></figure>
+
+<p>Update your PATH so that the protoc compiler can find the plugins:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ export PATH=&quot;$PATH:$(go env GOPATH)/bin&quot;</span><br></pre></td></tr></table></figure>
+<p>Get the example code<br>The example code is part of the grpc-go repo.</p>
+<p>Download the repo as a zip file and unzip it, or clone the repo:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone -b v1.41.0 https://github.com/grpc/grpc-go</span><br></pre></td></tr></table></figure>
+
+<p>Change to the quick start example directory:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd grpc-go/examples/helloworld</span><br></pre></td></tr></table></figure>
+<p>Run the example<br>From the examples/helloworld directory:</p>
+<p>Compile and execute the server code:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go run greeter_server/main.go</span><br></pre></td></tr></table></figure>
+<p>From a different terminal, compile and execute the client code to see the client output:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ go run greeter_client/main.go</span><br><span class="line"></span><br><span class="line">Greeting: Hello world</span><br></pre></td></tr></table></figure>
+<p>Congratulations! You’ve just run a client-server application with gRPC.</p>
+<p>Update the gRPC service<br>In this section you’ll update the application with an extra server method. The gRPC service is defined using protocol buffers. To learn more about how to define a service in a .proto file see Basics tutorial. For now, all you need to know is that both the server and the client stub have a SayHello() RPC method that takes a HelloRequest parameter from the client and returns a HelloReply from the server, and that the method is defined like this:</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The greeting service definition.</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Greeter</span> </span>&#123;</span><br><span class="line"><span class="comment">// Sends a greeting</span></span><br><span class="line"><span class="function"><span class="keyword">rpc</span> SayHello (HelloRequest) <span class="keyword">returns</span> (HelloReply) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The request message containing the user&#x27;s name.</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">HelloRequest</span> </span>&#123;</span><br><span class="line"><span class="built_in">string</span> name = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The response message containing the greetings</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">HelloReply</span> </span>&#123;</span><br><span class="line"><span class="built_in">string</span> <span class="class"><span class="keyword">message</span> = 1;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Open helloworld/helloworld.proto and add a new SayHelloAgain() method, with the same request and response types:</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// The greeting service definition.</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Greeter</span> </span>&#123;</span><br><span class="line"><span class="comment">// Sends a greeting</span></span><br><span class="line"><span class="function"><span class="keyword">rpc</span> SayHello (HelloRequest) <span class="keyword">returns</span> (HelloReply) </span>&#123;&#125;</span><br><span class="line"><span class="comment">// Sends another greeting</span></span><br><span class="line"><span class="function"><span class="keyword">rpc</span> SayHelloAgain (HelloRequest) <span class="keyword">returns</span> (HelloReply) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The request message containing the user&#x27;s name.</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">HelloRequest</span> </span>&#123;</span><br><span class="line"><span class="built_in">string</span> name = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The response message containing the greetings</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">HelloReply</span> </span>&#123;</span><br><span class="line"><span class="built_in">string</span> <span class="class"><span class="keyword">message</span> = 1;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>Remember to save the file!</p>
+<p>Regenerate gRPC code<br>Before you can use the new service method, you need to recompile the updated .proto file.</p>
+<p>While still in the examples/helloworld directory, run the following command:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ protoc --go_out=. --go_opt=paths=source_relative \</span><br><span class="line">--go-grpc_out=. --go-grpc_opt=paths=source_relative \</span><br><span class="line">helloworld/helloworld.proto</span><br></pre></td></tr></table></figure>
+
+<p>This will regenerate the helloworld/helloworld.pb.go and helloworld/helloworld_grpc.pb.go files, which contain:</p>
+<p>Code for populating, serializing, and retrieving HelloRequest and HelloReply message types.<br>Generated client and server code.<br>Update and run the application<br>You have regenerated server and client code, but you still need to implement and call the new method in the human-written parts of the example application.</p>
+<p>Update the server<br>Open greeter_server/main.go and add the following function to it:</p>
+<p>func (s *server) SayHelloAgain(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {<br>return &amp;pb.HelloReply{Message: “Hello again “ + in.GetName()}, nil<br>}<br>Update the client<br>Open greeter_client/main.go to add the following code to the end of the main() function body:</p>
+<p>r, err = c.SayHelloAgain(ctx, &amp;pb.HelloRequest{Name: name})<br>if err != nil {<br>log.Fatalf(“could not greet: %v”, err)<br>}<br>log.Printf(“Greeting: %s”, r.GetMessage())<br>Remember to save your changes.</p>
+<p>Run!<br>Run the client and server like you did before. Execute the following commands from the examples/helloworld directory:</p>
+<p>Run the server:</p>
+<p>$ go run greeter_server/main.go<br>From another terminal, run the client. This time, add a name as a command-line argument:</p>
+<p>$ go run greeter_client/main.go Alice<br>You’ll see the following output:</p>
+<p>Greeting: Hello Alice<br>Greeting: Hello again Alice</p>
 
     </div>
   </div>
@@ -284,7 +301,7 @@
         
           本文作者 : fabio <br/>
         
-        原文链接 : <a href="">https://zzzfwww.github.io/passages/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</a><br>
+        原文链接 : <a href="">https://zzzfwww.github.io/passages/grpc2021-10-29%E7%89%88%E6%9C%AC%E4%B8%AD%E5%AE%98%E7%BD%91%E6%96%87%E6%A1%A3/</a><br>
         版权声明 : 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
         </blockquote>
       </div>
@@ -367,15 +384,9 @@
       <div class="nav-pre">
         <i class="iconfont icon-prev"></i>
         上一篇:
-        <a href="/passages/%E9%9A%8F%E7%AC%9420211018/" target="_self">随笔20211018</a>
+        <a href="/passages/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">docker常用命令</a>
       </div>
     
-    
-      <div class="nav-next">
-        下一篇:
-        <a href="/passages/grpc2021-10-29%E7%89%88%E6%9C%AC%E4%B8%AD%E5%AE%98%E7%BD%91%E6%96%87%E6%A1%A3/" target="_self">grpc2021.10.29版本中官网文档</a>
-        <i class="iconfont icon-next"></i>
-      </div>
     
   </nav>
 
