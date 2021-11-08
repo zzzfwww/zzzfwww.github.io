@@ -246,40 +246,41 @@
 
   <div class="article-content">
     <div class="markdown-body">
-      <ul>
-<li>用腾讯云国内大陆服务器来拉取github上某些项目估计大家都有相同的经历，实在是太慢了，慢的让人发狂</li>
+      <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li><p>用腾讯云国内大陆服务器来拉取github上某些项目估计大家都有相同的经历，实在是太慢了，慢的让人发狂</p>
+</li>
+<li><p>故自己也搜索了一下，发现了网上有大佬已经给出了方案。</p>
+</li>
+<li><p>在这里我也来说下。</p>
+</li>
 </ul>
-<p>故自己也搜索了一下，发现了网上有大佬已经给出了方案。</p>
-<p>在这里我也来说下。</p>
-<p>fastgit.org</p>
+<h3 id="fastgit-org"><a href="#fastgit-org" class="headerlink" title="fastgit.org"></a>fastgit.org</h3><blockquote>
 <p><a target="_blank" rel="noopener" href="https://doc.fastgit.org/">https://doc.fastgit.org/</a></p>
-<p>gitclone.com</p>
+</blockquote>
+<h3 id="gitclone-com"><a href="#gitclone-com" class="headerlink" title="gitclone.com"></a>gitclone.com</h3><blockquote>
 <p><a target="_blank" rel="noopener" href="https://gitclone.com/">https://gitclone.com/</a></p>
-<p>cnpmjs.org</p>
+</blockquote>
+<h3 id="cnpmjs-org"><a href="#cnpmjs-org" class="headerlink" title="cnpmjs.org"></a>cnpmjs.org</h3><blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com.cnpmjs.org/">https://github.com.cnpmjs.org/</a></p>
+</blockquote>
 <h3 id="克隆加速-like"><a href="#克隆加速-like" class="headerlink" title="克隆加速 like"></a>克隆加速 like</h3><ul>
-<li>原链接<br>```shell<br>git clone <a target="_blank" rel="noopener" href="https://github.com/tencentyun/qcloud-documents.git">https://github.com/tencentyun/qcloud-documents.git</a></li>
-<li>```</li>
-<li>加速后的链接<br>```shell<br>git clone <a target="_blank" rel="noopener" href="https://github.com.cnpmjs.org/tencentyun/qcloud-documents.git">https://github.com.cnpmjs.org/tencentyun/qcloud-documents.git</a><br>git clone <a target="_blank" rel="noopener" href="https://hub.fastgit.org/tencentyun/qcloud-documents.git">https://hub.fastgit.org/tencentyun/qcloud-documents.git</a><br>git clone <a target="_blank" rel="noopener" href="https://gitclone.com/github.com/tencentyun/qcloud-documents.git">https://gitclone.com/github.com/tencentyun/qcloud-documents.git</a></li>
-<li>```<h3 id="下载加速-like"><a href="#下载加速-like" class="headerlink" title="下载加速 like"></a>下载加速 like</h3>原链接<br>```shell</li>
+<li><p>原链接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/tencentyun/qcloud-documents.git</span><br></pre></td></tr></table></figure></li>
+<li><p>加速后的链接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com.cnpmjs.org/tencentyun/qcloud-documents.git</span><br><span class="line">git clone https://hub.fastgit.org/tencentyun/qcloud-documents.git</span><br><span class="line">git clone https://gitclone.com/github.com/tencentyun/qcloud-documents.git</span><br></pre></td></tr></table></figure>
+<h3 id="下载加速-like"><a href="#下载加速-like" class="headerlink" title="下载加速 like"></a>下载加速 like</h3></li>
+<li><p>原链接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/tencentyun/qcloud-documents/archive/master.zip</span><br></pre></td></tr></table></figure></li>
+<li><p>加速后的链接</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://hub.fastgit.org/tencentyun/qcloud-documents/archive/master.zip</span><br><span class="line">wget https://github.com.cnpmjs.org/tencentyun/qcloud-documents/archive/master.zip</span><br><span class="line">wget https://gitclone.com/github.com/tencentyun/qcloud-documents/archive/master.zip</span><br></pre></td></tr></table></figure></li>
+<li><p>在这里经过测试 <a target="_blank" rel="noopener" href="https://hub.fastgit.org/">https://hub.fastgit.org</a></p>
+</li>
+<li><p>这个速度比较理想，有需要的可以试一试。</p>
+</li>
 </ul>
-<p>wget <a target="_blank" rel="noopener" href="https://github.com/tencentyun/qcloud-documents/archive/master.zip">https://github.com/tencentyun/qcloud-documents/archive/master.zip</a></p>
-<ul>
-<li>```</li>
-</ul>
-<p>加速后的链接</p>
-<pre><code class="shell">wget https://hub.fastgit.org/tencentyun/qcloud-documents/archive/master.zip
-wget https://github.com.cnpmjs.org/tencentyun/qcloud-documents/archive/master.zip
-wget https://gitclone.com/github.com/tencentyun/qcloud-documents/archive/master.zip
-- ```
-
-在这里经过测试 https://hub.fastgit.org
-
-这个速度比较理想，有需要的可以试一试。
-
-原文链接：https://blog.csdn.net/networken/article/details/105122778
-
-</code></pre>
+<blockquote>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/networken/article/details/105122778">https://blog.csdn.net/networken/article/details/105122778</a></p>
+</blockquote>
 
     </div>
   </div>
