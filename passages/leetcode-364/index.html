@@ -8,7 +8,7 @@
   
   
   
-  <title>golang-select死锁的例子 | fabioCircle的blog</title>
+  <title>leetcode-364 Maximum Average Subarray I | fabioCircle的blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -227,7 +227,7 @@
 
 <div class="post">
   <h1 class="article-title">
-    <span>golang-select死锁的例子</span>
+    <span>leetcode-364 Maximum Average Subarray I</span>
   </h1>
   <div class="article-top-meta">
     <span>
@@ -237,7 +237,7 @@
     
     
       <span>
-        浏览 : <span class="article-timer" data-identity="golang-select死锁的例子"></span>
+        浏览 : <span class="article-timer" data-identity="leetcode-364"></span>
       </span>
     
   </div>
@@ -246,16 +246,16 @@
 
   <div class="article-content">
     <div class="markdown-body">
-      <h2 id="正常的代码例子"><a href="#正常的代码例子" class="headerlink" title="正常的代码例子"></a>正常的代码例子</h2><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">			fmt.Println(<span class="string">&quot;print test&quot;</span>)</span><br><span class="line">			time.Sleep(time.Second)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;()</span><br><span class="line">	<span class="keyword">select</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <h3 id="快速想到的最简解法"><a href="#快速想到的最简解法" class="headerlink" title="快速想到的最简解法"></a>快速想到的最简解法</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findMaxAverage</span><span class="params">(nums []<span class="keyword">int</span>, k <span class="keyword">int</span>)</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">	<span class="comment">// 题目给出的最大数字+-10000 数组数量最大为10的5次方</span></span><br><span class="line">	max := <span class="number">-1000000000</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= <span class="built_in">len</span>(nums)-k; i++ &#123;</span><br><span class="line">		ind := i</span><br><span class="line">		sum := <span class="number">0</span></span><br><span class="line">		<span class="keyword">for</span> j := <span class="number">0</span>; j &lt; k; j++ &#123;</span><br><span class="line">			sum += nums[ind+j]</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> max &lt; sum &#123;</span><br><span class="line">			max = sum</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">float64</span>(max) / <span class="keyword">float64</span>(k)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>因为新开的协程里面有一个死循环所以这个例子运行不会死锁</li>
+<li>提交能通过，但是Runtime太高，beat 不到10%的人</li>
 </ul>
-<h2 id="出现死锁的代码例子"><a href="#出现死锁的代码例子" class="headerlink" title="出现死锁的代码例子"></a>出现死锁的代码例子</h2><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;print test&quot;</span>)</span><br><span class="line">		time.Sleep(time.Second)</span><br><span class="line">	&#125;()</span><br><span class="line">	<span class="keyword">select</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="遂优化"><a href="#遂优化" class="headerlink" title="遂优化"></a>遂优化</h3><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findMaxAverage</span><span class="params">(nums []<span class="keyword">int</span>, k <span class="keyword">int</span>)</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">  sum := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; k; i++ &#123;</span><br><span class="line">		sum += nums[i]</span><br><span class="line">	&#125;</span><br><span class="line">	s := sum</span><br><span class="line">	<span class="keyword">for</span> i := k; i &lt; <span class="built_in">len</span>(nums); i++ &#123;</span><br><span class="line">		s += nums[i]</span><br><span class="line">		s -= nums[i-k]</span><br><span class="line">		<span class="keyword">if</span> s &gt; sum &#123;</span><br><span class="line">			sum = s</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">float64</span>(sum) / <span class="keyword">float64</span>(k)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>这里新开的协程没有阻塞的死循环在处理事件</li>
-<li>报错信息<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">print test</span><br><span class="line">fatal error: all goroutines are asleep - deadlock!</span><br><span class="line"></span><br><span class="line">goroutine 1 [select (no cases)]:</span><br><span class="line">main.main()</span><br><span class="line">        /Users/zfw/GolandProjects/select-test/main.go:29 +0x2a</span><br><span class="line"></span><br><span class="line">Process finished with the exit code 2</span><br></pre></td></tr></table></figure></li>
+<li>此版本是滑动窗口移动的解法，这样也挺简单的</li>
+<li>这个结果RunTime马上降到168ms，beat60%+的提交，可以接受</li>
 </ul>
-<h2 id="原因待查"><a href="#原因待查" class="headerlink" title="原因待查"></a>原因待查</h2>
+
     </div>
   </div>
   
@@ -266,7 +266,7 @@
         
           本文作者 : fabio <br/>
         
-        原文链接 : <a href="">https://zzzfwww.github.io/passages/golang-select%E6%AD%BB%E9%94%81%E7%9A%84%E4%BE%8B%E5%AD%90/</a><br>
+        原文链接 : <a href="">https://zzzfwww.github.io/passages/leetcode-364/</a><br>
         版权声明 : 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
         </blockquote>
       </div>
@@ -349,15 +349,9 @@
       <div class="nav-pre">
         <i class="iconfont icon-prev"></i>
         上一篇:
-        <a href="/passages/github-fork-%E4%B9%8B%E5%90%8E%E5%90%8C%E6%AD%A5%E6%BA%90%E7%9A%84%E6%9B%B4%E6%96%B0/" target="_self">github fork 之后同步源的更新</a>
+        <a href="/passages/golang-select%E6%AD%BB%E9%94%81%E7%9A%84%E4%BE%8B%E5%AD%90/" target="_self">golang-select死锁的例子</a>
       </div>
     
-    
-      <div class="nav-next">
-        下一篇:
-        <a href="/passages/leetcode-364/" target="_self">leetcode-364 Maximum Average Subarray I</a>
-        <i class="iconfont icon-next"></i>
-      </div>
     
   </nav>
 
