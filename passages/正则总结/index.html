@@ -8,7 +8,7 @@
   
   
   
-  <title>正则总结 | fabioCircle的blog</title>
+  <title>三剑客和正则总结 | fabioCircle的blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -227,7 +227,7 @@
 
 <div class="post">
   <h1 class="article-title">
-    <span>正则总结</span>
+    <span>三剑客和正则总结</span>
   </h1>
   <div class="article-top-meta">
     <span>
@@ -252,6 +252,127 @@
 <li>给grep,egrep加上颜色 alias grep=’grep –color=auto’ alias egrep=’egrep –color=auto’</li>
 <li>注意系统的字符集：en_US.UTF-8(大部分情况没问题)，如果出现问题修改字符集为C export LANG=C</li>
 <li>快速掌握正则：配合grep -o 参数学习</li>
+</ul>
+<h1 id="sed命令结合正则"><a href="#sed命令结合正则" class="headerlink" title="sed命令结合正则"></a>sed命令结合正则</h1><h2 id="1）-sed-查找p"><a href="#1）-sed-查找p" class="headerlink" title="1） sed-查找p"></a>1） sed-查找p</h2><table>
+<thead>
+<tr>
+<th>查找格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>‘2p’</td>
+<td>指定行号进行查找</td>
+</tr>
+<tr>
+<td>’1,5p’</td>
+<td>指定行号范围进行查找</td>
+</tr>
+<tr>
+<td>‘/lidao/p’</td>
+<td>类似于grep，过滤，//里面可以写正则</td>
+</tr>
+<tr>
+<td>‘/10:00/,/11:00/p’</td>
+<td>表示范围的过滤</td>
+</tr>
+<tr>
+<td>1,/old/</td>
+<td>混合</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤当前的内容为11:02:30</span></span><br><span class="line">sed -n <span class="string">&#x27;/11:02:30/p&#x27;</span> file </span><br><span class="line"><span class="comment"># 过滤从11:02:13到11:04:14的行</span></span><br><span class="line">sed -n <span class="string">&#x27;/11:02:13/,/11:04:14/p&#x27;</span> file</span><br><span class="line">如果写错了，则有可能文件所有内容都显示出来。</span><br></pre></td></tr></table></figure>
+
+<h2 id="2）-sed-删除"><a href="#2）-sed-删除" class="headerlink" title="2） sed 删除"></a>2） sed 删除</h2><pre><code> - d delete
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>查找格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>‘2p’</td>
+<td>指定行号进行删除</td>
+</tr>
+<tr>
+<td>’1,5d’</td>
+<td>指定行号范围进行删除</td>
+</tr>
+<tr>
+<td>‘/lidao/d’</td>
+<td>类似于grep，过滤，//里面可以写正则</td>
+</tr>
+<tr>
+<td>‘/10:00/,/11:00/d’</td>
+<td>表示范围的过滤</td>
+</tr>
+<tr>
+<td>1,/old/</td>
+<td>混合</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>删除文件中的空行和包含#号的行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">egrep -v <span class="string">&#x27;^$|#&#x27;</span> file</span><br><span class="line">sed -r <span class="string">&#x27;^$|#/d&#x27;</span> file</span><br><span class="line"></span><br><span class="line">!的妙用</span><br><span class="line">sed -nr <span class="string">&#x27;^$|#/!p&#x27;</span> file</span><br><span class="line">遇到空行和<span class="comment">#号不显示</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="3）-sed-增加cai"><a href="#3）-sed-增加cai" class="headerlink" title="3） sed -增加cai"></a>3） sed -增加cai</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>c</td>
+<td>replace替代这行的内容</td>
+</tr>
+<tr>
+<td>a</td>
+<td>append 追加，向指定的行或每一行追加内容（行后面）&gt;&gt;</td>
+</tr>
+<tr>
+<td>i</td>
+<td>insert 插入，向指定的行或每一行插入内容（行前面）</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>向文件中追加多行内容</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">向config里面追加</span><br><span class="line">UseDNS no</span><br><span class="line">GSSAPIAUTCATION no</span><br><span class="line">PermitRootLogin no</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法1:推荐</span></span><br><span class="line">cat &gt;&gt;config&lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">UseDNS no</span><br><span class="line">GSSAPIAUTCATION no</span><br><span class="line">PermitRootLogin no</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="comment">#方法2：sed</span></span><br><span class="line">sed <span class="string">&#x27;$a UseDNS no\nGSSAPIAUTCATION no\nPermitRootLogin no\n&#x27;</span> config</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="4）-sed-替换s"><a href="#4）-sed-替换s" class="headerlink" title="4） sed -替换s"></a>4） sed -替换s</h2><pre><code>- s-&gt;sub substitute替换
+- g -&gt;global 全局替换，sed替换每行所有匹配的
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>替换格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>s###g</td>
+<td>替换格式推荐</td>
+</tr>
+<tr>
+<td>s@@@g</td>
+<td>推荐</td>
+</tr>
+<tr>
+<td>s///g</td>
+<td>不推荐</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>反向引用，后向引用</p>
+</li>
+<li><p>口诀：先保护，再使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo 12345 |sed -r &#x27;s#(.*)#&lt;\1&gt;#g&#x27;</span><br><span class="line">echo old_li |sed -r &#x27;s#(^.*)_(.*$)#\1\2#g&#x27;</span><br></pre></td></tr></table></figure></li>
+<li><p>-w [0-9a-zA-Z_]</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自己mac电脑拿到网卡的ip地址</span></span><br><span class="line">ifconfig en0 |sed -n <span class="string">&#x27;5p&#x27;</span> |sed -r <span class="string">&#x27;s#(.*et )(.*)( net.*$)#\2#g&#x27;</span></span><br><span class="line">ifconfig en0 |sed -n <span class="string">&#x27;5p&#x27;</span> |sed -r <span class="string">&#x27;s#.*et (.*) net.*$#\1#g&#x27;</span></span><br><span class="line">ip a s eth0 |sed -n <span class="string">&#x27;3p&#x27;</span>|sed -r <span class="string">&#x27;s#.*t (.*)/.*$#\1#g&#x27;</span></span><br><span class="line"><span class="comment"># 直接拿到想要文件的权限</span></span><br><span class="line"><span class="built_in">stat</span> -c%a /etc/hosts</span><br></pre></td></tr></table></figure></li>
+<li><p>sed <img src="./img/sed.png" alt="总结"></p>
+</li>
 </ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><table>
 <thead>
