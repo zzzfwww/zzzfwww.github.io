@@ -371,7 +371,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo 12345 |sed -r &#x27;s#(.*)#&lt;\1&gt;#g&#x27;</span><br><span class="line">echo old_li |sed -r &#x27;s#(^.*)_(.*$)#\1\2#g&#x27;</span><br></pre></td></tr></table></figure></li>
 <li><p>-w [0-9a-zA-Z_]</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自己mac电脑拿到网卡的ip地址</span></span><br><span class="line">ifconfig en0 |sed -n <span class="string">&#x27;5p&#x27;</span> |sed -r <span class="string">&#x27;s#(.*et )(.*)( net.*$)#\2#g&#x27;</span></span><br><span class="line">ifconfig en0 |sed -n <span class="string">&#x27;5p&#x27;</span> |sed -r <span class="string">&#x27;s#.*et (.*) net.*$#\1#g&#x27;</span></span><br><span class="line">ip a s eth0 |sed -n <span class="string">&#x27;3p&#x27;</span>|sed -r <span class="string">&#x27;s#.*t (.*)/.*$#\1#g&#x27;</span></span><br><span class="line"><span class="comment"># 直接拿到想要文件的权限</span></span><br><span class="line"><span class="built_in">stat</span> -c%a /etc/hosts</span><br></pre></td></tr></table></figure></li>
-<li><p>sed <img src="./img/sed.png" alt="总结"></p>
+<li><p>sed <img src="https://zzzfwww.github.io/img/sed.png" alt="总结"></p>
 </li>
 </ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><table>
@@ -554,6 +554,12 @@
         <a href="/passages/10%E5%A4%A7%E5%A5%A2%E4%BE%88%E5%93%81/" target="_self">10大奢侈品</a>
       </div>
     
+    
+      <div class="nav-next">
+        下一篇:
+        <a href="/passages/float-simple/" target="_self">float底层存储方式</a>
+        <i class="iconfont icon-next"></i>
+      </div>
     
   </nav>
 
