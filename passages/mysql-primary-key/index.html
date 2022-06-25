@@ -8,7 +8,7 @@
   
   
   
-  <title>归档: 2021/12 | fabioCircle的blog</title>
+  <title>mysql主键设置的三种方式 | fabioCircle的blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -212,43 +212,316 @@
   })
 </script>
 
-      <div class="container">
-  <div class="timeline">
-  <span class="archive-move-on"></span>
-  <span class="archive-page-counter">
-    
-      <span>Wow! 一共有 16 篇文章</span>
-    
-  </span>
+      
+
+
+
+
+
+
+
+
+<div class="container post-index">
+
   
+
+<div class="post">
+  <h1 class="article-title">
+    <span>mysql主键设置的三种方式</span>
+  </h1>
+  <div class="article-top-meta">
+    <span>
+      发布 : 
+      2022-06-25
+    </span>
+    
+    
+      <span>
+        浏览 : <span class="article-timer" data-identity="mysql-primary-key"></span>
+      </span>
+    
+  </div>
+
   
-    <div class="collection-title">
-      <h2>
-        <span>2021</span>
-      </h2>
+
+  <div class="article-content">
+    <div class="markdown-body">
+      <h1 id="mysql-主键三种方式"><a href="#mysql-主键三种方式" class="headerlink" title="mysql 主键三种方式"></a>mysql 主键三种方式</h1><h2 id="自增主键auto-increment自增"><a href="#自增主键auto-increment自增" class="headerlink" title="自增主键auto_increment自增"></a>自增主键auto_increment自增</h2><ul>
+<li>大部分情况下我们都是建议使用自增主键</li>
+<li>如果需要用到分库分表则不太建议使用自增主键</li>
+</ul>
+<h2 id="雪花算法"><a href="#雪花算法" class="headerlink" title="雪花算法"></a>雪花算法</h2><p><img src="snowflake.png" alt="snowflake"></p>
+<ul>
+<li>第0位是不使用的</li>
+<li>雪花算法41位是时间戳，精度是毫秒，这个大小大概能表示个<strong>69年</strong>左右。</li>
+<li>接下来10位是指产生这些雪花算法的工作机器id，这样就可以每个机器产生的id具有相应的标识</li>
+<li>在接下来就是12位的序列号，这些工作机器里面生成的递增数字<blockquote>
+<p>可以看出在同一毫秒内，能产生的id数量就是2的10次方*2的12次方，大概400w个肯定是够用的。</p>
+</blockquote>
+</li>
+</ul>
+<p>细心的兄弟们肯定也发现了，雪花算法它算出的数字动不动就比上次的数字多个几百几万的，也就是它生成的id是趋势递增的，并不是严格+1自增的，也就是说它并不太适合于根据范围来分表的场景。这是个非常疼的问题。</p>
+<p>还有个小问题是，那10位工作机器id，我每次扩容一个工作机器，这个机器怎么知道自己的id是多少呢？是不是得从某个地方读过来。</p>
+<p>那有没有一种生成id生成方案，既能让分库分表能做到很好的支持动态扩容，又能像雪花算法那样并不依赖redis这样的第三方服务。</p>
+<h2 id="uuid形式"><a href="#uuid形式" class="headerlink" title="uuid形式"></a>uuid形式</h2><p><img src="uuid.png" alt="uuid"></p>
+<p>适合分库分表的uuid算法</p>
+<p>我们可以参考雪花算法的实现，设计成下面这样。注意下面的每一位，都是十进制，而不是二进制。<br>开头的12位依然是时间，但并不是时间戳，雪花算法的时间戳精确到毫秒，我们用不上这么细，我们改为yyMMddHHmmss，注意开头的yy是两位，也就是这个方案能保证到2099年之前，id都不会重复，能用到重复，那也是真·百年企业。同样由于最前面是时间，随着时间流逝，也能保证id趋势递增。</p>
+<p>接下来的10位，用十进制的方式表示工作机器的ip，就可以把12位的ip转为10位的数字，它可以保证全局唯一，只要服务起来了，也就知道自己的ip是多少了，不需要像雪花算法那样从别的地方去读取worker id了，又是一个小细节。<br>在接下来的6位，就用于生成序列号，它能支持每秒钟生成100w个id。</p>
+<p>最后的4位，也是这个id算法最妙的部分。它前2位代表分库id，后2位代表分表id。也就是支持一共100*100=1w张分表。</p>
+<p>参考小白debug <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vNRIFKjbe7itRTxmq-bkAA">link</a></p>
+
+    </div>
+  </div>
+  
+    <div class="copy-right">
+      <div class="markdown-body">
+        <blockquote>
+        
+        
+          本文作者 : fabio <br/>
+        
+        原文链接 : <a href="">https://zzzfwww.github.io/passages/mysql-primary-key/</a><br>
+        版权声明 : 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+        </blockquote>
+      </div>
     </div>
   
   
   
-  <article class="posts-collapse">
-    <header>
-      <h2>
-        <a href="/passages/github-fork-%E4%B9%8B%E5%90%8E%E5%90%8C%E6%AD%A5%E6%BA%90%E7%9A%84%E6%9B%B4%E6%96%B0/">
-          <span>github fork 之后同步源的更新</span>
-        </a>
-      </h2>
-      <div class="post-meta">
-        12-11
-      </div>
-    </header>
-  </article>
+    <div class="social-share"
+  style="margin-top: -2rem"
+  data-wechat-qrcode-title="<p>微信扫一扫</p>"
+  data-wechat-qrcode-helper="<p>微信右上角, 扫一扫分享</p>"
+   data-sites="qq, weibo, wechat, google, facebook, twitter" 
   
+>
+  <span style="color: #6b7487; font-size: 1.4rem;">分享到: </span>
 </div>
-  <nav class="page-navigation">
+<script src="https://cdn.bootcss.com/social-share.js/1.0.16/js/social-share.min.js" async>
+  
+
+  
+    <div id="reward">
+  
+    <p id="reward-meta">知识 & 情怀 | 二者兼得</p>
+  
+  <button id="reward-btn">
+    
+    <span>投食</span>
+  </button>
+  <div id="reward-qrcode">
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/images/wechat.png" alt="微信扫一扫, 向我投食">
+        <p class="qrcode-meta">微信扫一扫, 向我投食</p>
+      </div>
+    
+      <div class="reward-qrcode--container">
+        <img class="qrcode-img" src="/images/alipay.png" alt="支付宝扫一扫, 向我投食">
+        <p class="qrcode-meta">支付宝扫一扫, 向我投食</p>
+      </div>
+    
+  </div>
+
+</div>
+
+<script>
+  (() => {
+    let button = document.querySelector('#reward-btn'),
+      qrcode = document.querySelector('#reward-qrcode'),
+      display = false;
+    
+    button.addEventListener('click', () => {
+      qrcode.style.display = display ? 'none' : 'block'
+      display = !display
+    }, false)
+  })()
+</script>
+  
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+      <span>
+        
+      </span>
+    </div>
+    <div class="article-meta pull-right">
+    </div>
+  </div>
+</div>
+
+
+  <aside id="sidebar">
+    <p id="sidebar-header"></p>
+    <ol id="sidebar-toc"></ol>
+  </aside>
+  <script async>setTimeout(generateToc, 10);</script>
+
+
+  <nav class="post-navigation">
+    
+      <div class="nav-pre">
+        <i class="iconfont icon-prev"></i>
+        上一篇:
+        <a href="/passages/float-simple/" target="_self">float底层存储方式</a>
+      </div>
     
     
   </nav>
+
+  
+    <a href="#comment" class="comment-anchor"></a>
+<div class="comment-title"><i class="iconfont icon-footprint"></i> 留下足迹 <i class="iconfont icon-footprint"></i></div>
+<div id="vcomments"></div>
+
+<script defer>
+  if( true ) {
+    let path = getRealPath()
+    new Valine({
+      el: "#vcomments",
+      appId: "Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz",
+      appKey: "WaR7nrzhliHj9aVwdQzkdlGd",
+      notify: false,
+      verify: false,
+      avatar: "robohash",
+      placeholder: "正确填写邮箱, 才能及时收到回复哦♪(^∇^*)",
+      path
+    });
+  }
+</script>
+   
+
+  
+    <script defer>
+const valineAPI = (() => {
+  try {
+    AV.init("Hyq9wkH495DgNHWhDQCOfQSp-gzGzoHsz", "WaR7nrzhliHj9aVwdQzkdlGd");
+  } catch(error) {}
+  const isExist = (identity) => {
+    identity = identity || getRealPath();
+    let query = new AV.Query('Timer');
+    return new Promise((resolve, reject) => {
+      query.equalTo("identity", identity);
+      query.find().then(results => {
+        resolve(results.length > 0);
+      }, error => reject(error));
+    })
+  }
+
+  const _get = (identity) => {
+    let query = null;
+    if(identity && identity instanceof Array){
+      let querys = [];
+      for(let i = 0; i < identity.length; ++i) {
+        querys[i] = new AV.Query('Timer');
+        querys[i].equalTo('identity', identity[i]);
+      }
+      query = AV.Query.or.apply(null ,querys);
+    } else {
+      identity = identity || getRealPath();
+      query = new AV.Query("Timer");
+      query.equalTo("identity", identity);
+    }
+
+    return new Promise((resolve, reject) => {
+      query.find()
+      .then(results => resolve(results))
+      .catch(error => reject(error))
+    })
+  }
+
+  const create = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let Todo = AV.Object.extend('Timer');
+      let todo = new Todo();
+      todo.set("times", 1);
+      todo.set("identity", identity);
+      todo.save().then(res => resolve(true), error => reject(error));
+    })
+  }
+
+  const update = (identity) => {
+    identity = identity || getRealPath();
+    return new Promise((resolve, reject) => {
+      let query = new AV.Query('Timer');
+      query.equalTo("identity", identity);
+      query.find().then(todos => {
+        todos.forEach(todo => {
+          todo.set("times", todo.attributes.times + 1);
+        });
+        return AV.Object.saveAll(todos);
+      }).then(todos => resolve(true), error => reject(error));
+    })
+  }
+
+  return {
+    isExist,
+    _get,
+    update,
+    create
+  }
+})()
+
+const calcAndWriteTimes = () => {
+  let isPost = true;
+
+  let timerAllDOM = document.querySelectorAll(".article-timer");
+
+  if(isPost) {
+    let identity = timerAllDOM[0].getAttribute("data-identity");
+    valineAPI.isExist(identity)
+    .then(exist => {
+      if(exist) {
+        return valineAPI.update(identity);
+      }
+      return new Promise(resolve => resolve(true));
+    })
+    .then( succuess => valineAPI._get(identity))
+    .then( result => timerAllDOM[0].innerText = result[0].attributes.times)
+    .catch(error => console.log(error.message))
+    return ;
+  }
+
+  let timerDOMCache = {};
+
+  for(let timerDOM of timerAllDOM) {
+    let identity = timerDOM.getAttribute("data-identity");
+    if(timerDOMCache.hasOwnProperty(identity)){
+      timerDOMCache[identity].dom.push(timerDOM);
+    }else{
+      timerDOMCache[identity] = {
+        dom: [timerDOM],
+        times: undefined
+      };
+    }
+  }
+
+  let identities = Object.keys(timerDOMCache);
+  valineAPI._get(identities).then(results => {
+    for(let result of results) {
+      let {identity, times} = result.attributes;
+      timerDOMCache[identity].times = times;
+      timerDOMCache[identity].dom.map(item => item.innerText = times);
+    }
+    for(let identity of identities) {
+      if(timerDOMCache[identity].times){
+        continue;
+      }
+      timerDOMCache[identity].dom.map(item => item.innerText = 1);
+      valineAPI.create(identity);
+    }
+  }).catch(error => console.log(error.message))
+}
+
+if(true){
+  calcAndWriteTimes();
+}
+</script>
+   
+
 </div>
+
 
       <footer>
   <p class="site-info">
