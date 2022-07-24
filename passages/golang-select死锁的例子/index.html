@@ -255,7 +255,10 @@
 <li>这里新开的协程没有阻塞的死循环在处理事件</li>
 <li>报错信息<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">print test</span><br><span class="line">fatal error: all goroutines are asleep - deadlock!</span><br><span class="line"></span><br><span class="line">goroutine 1 [select (no cases)]:</span><br><span class="line">main.main()</span><br><span class="line">        /Users/zfw/GolandProjects/select-test/main.go:29 +0x2a</span><br><span class="line"></span><br><span class="line">Process finished with the exit code 2</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="原因待查"><a href="#原因待查" class="headerlink" title="原因待查"></a>原因待查</h2>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><ul>
+<li>因为如果当前除了select{}阻塞的goroutine外，没有其他可运行的goroutine，所以就出现死锁。</li>
+</ul>
+
     </div>
   </div>
   
